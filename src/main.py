@@ -23,7 +23,7 @@ def main():
     # writedata_to_file(memodata_path, memodata)
 
 
-memodata_path = "asset/memodata.json"
+memodata_path = "data/memodata.json"
 
 menubar_lay = [
     ["File", ["Save", ["Save as"], "Copy"]],
