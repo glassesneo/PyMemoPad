@@ -14,8 +14,15 @@ class Observable(Protocol):
         ...
 
 
-@dataclass
-class ItemsColumn:
+@dataclass()
+class SearchUI:
+    def update(self, win: sg.Window, md: MemoData, e: keys, v: dict[keys, str]):
+        if e == keys.search_img:
+            win[keys.search_in].set_focus(True)
+
+
+@dataclass()
+class ItemsUI:
     def update(self, win: sg.Window, md: MemoData, e: keys, v: dict[keys, str]):
         if e == keys.items_lb:
             ...
@@ -25,7 +32,7 @@ class ItemsColumn:
 class EventManager:
     window: sg.Window
     memodata: MemoData
-    observers: list[Observable] = field(init=False)
+    observers: list[Observable] = field(default_factory=list[Observable], init=False)
 
     def register(self, observer: Observable) -> EventManager:
         self.observers.append(observer)
