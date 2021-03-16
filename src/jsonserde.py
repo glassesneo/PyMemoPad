@@ -11,12 +11,15 @@ factory = dcf.Factory()
 @dataclass()
 class Memo:
     title: str
+    lock: bool
     letters: str
     date: str
 
 
 @dataclass()
 class MemoData:
+    """Jsonからのシリアライズとキャッシュ"""
+
     memos: list[Memo]
 
     def __getitem__(self, k: str) -> Optional[Memo]:

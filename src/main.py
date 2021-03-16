@@ -1,56 +1,53 @@
-from typing import cast
+from typing import Union, cast
 
 import PySimpleGUI as sg
 
-from event import EventManager, SearchUI
+from event.main import Addition, EventManager, Items, Search
 from jsonserde import MemoData, json_to_data, writedata_to_file
-from keys import keys
-from style import *
+from style.main import *
 
 
-def main():
+def app():
 
     while True:
-        event, values = cast(tuple[keys, dict[keys, str]], window())
+        e, v = cast(tuple[main, dict[main, Union[str, list[str]]]], window())
 
-        if event in (sg.WIN_CLOSED,):
+        if e in (sg.WIN_CLOSED,):
             break
 
-        print(event, values)
-        manager.register(SearchUI())
+        print(f"{e=}\n{v=}")
 
-        manager.notify_observers(event, values)
+        manager.register(Search(window, e), Addition(memodata, e), Items(e))
+        manager.notify_observers()
 
     window.close()
     # writedata_to_file(memodata_path, memodata)
 
 
+sg.theme("DarkGrey14")
+
 memodata_path = "data/memodata.json"
 
-menubar_lay = [
-    ["Settings", "File"],
-]
 
 memodata = json_to_data(memodata_path)
 items_lb_val = memodata.titles()
 
 items_col_lay = [
-    [sg.Image(**search_img), sg.In(**search_in)],
+    [sg.Image(**search_img), sg.In(**search_in), sg.Btn(**add_btn)],
     [sg.LB(items_lb_val, **items_listbox)],
 ]
 
 window = sg.Window(
     title="SimpleMemo",
     layout=[
-        [sg.MenuBar(menubar_lay)],
         [sg.Col(items_col_lay), sg.VSep()],
     ],
-    location=(400, 200),
     size=(500, 550),
+    disable_close=True,
 )
 
 
 manager = EventManager(window, memodata)
 
 
-main()
+app()
