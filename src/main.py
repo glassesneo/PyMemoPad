@@ -39,7 +39,7 @@ items_col_lay = [
 ]
 
 window = sg.Window(
-    title="SimpleMemo",
+    title="PyMemoPad",
     layout=[
         [sg.Col(items_col_lay), sg.VSep()],
         [sg.Btn(**exit_btn)],

@@ -1,1 +1,1 @@
-# SimpleMemo
+# PyMemoPad
