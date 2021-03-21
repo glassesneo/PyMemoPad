@@ -66,4 +66,4 @@ class EventManager:
     def notify_observers(self) -> EventManager:
         for o in self.observers:
             o.update()
-        return self
+        return self.unregister()

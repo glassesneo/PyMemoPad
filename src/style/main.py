@@ -27,3 +27,9 @@ items_listbox = widget_args(
     size=(22, 20),
     k=main.items_lb,
 )
+
+exit_btn = widget_args(
+    button_text="Exit",
+    size=(3, 1),
+    k=main.exit_btn,
+)

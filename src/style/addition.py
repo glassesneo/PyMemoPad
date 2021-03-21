@@ -6,8 +6,24 @@ title_in = widget_args(
     k=addition.title_in,
 )
 
+pass_txt = widget_args(
+    text="password:",
+    size=(8, 2),
+)
+
+pass_in = widget_args(
+    password_char="*",
+    k=addition.pass_in,
+)
+
+pass_check = widget_args(
+    text="show password",
+    enable_events=True,
+    k=addition.pass_check,
+)
+
 on_btn = widget_args(
-    button_text="",  # デフォルトでは"off"だけ表示する
+    button_text="on",  # デフォルトでは"off"だけ表示する
     size=(3, 1),
     button_color=grey,
     pad=((5, 0), (5, 5)),
@@ -22,17 +38,18 @@ off_btn = widget_args(
     k=addition.off_btn,
 )
 
-pass_in = widget_args(
-    password_char="*",
-    k=addition.pass_in,
-)
-
-confirm_pass_in = widget_args(
-    password_char="*",
-    k=addition.confirm_pass_in,
-)
-
 pass_pin_col = widget_args(
     k=addition.pass_col,
     visible=False,
+)
+
+
+cancel_btn = widget_args(
+    size=(6, 1),
+    k=addition.cancel_btn,
+)
+
+ok_btn = widget_args(
+    size=(6, 1),
+    k=addition.ok_btn,
 )

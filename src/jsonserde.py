@@ -12,8 +12,9 @@ factory = dcf.Factory()
 class Memo:
     title: str
     lock: bool
-    letters: str
+    password: Optional[str]
     date: str
+    letters: str = ""
 
 
 @dataclass()
@@ -45,6 +46,13 @@ def json_to_data(fp: str) -> MemoData:
     return _str_to_data(_fp_to_str(fp))
 
 
-def writedata_to_file(fp: str, data: MemoData):
-    with open(fp, mode="") as f:
-        json.dump(jsons.dump(data), f)
+def writedata_to_file(fp: str, md: MemoData):
+    with open(fp, mode="w") as f:
+        json.dump(
+            jsons.dump(md),
+            f,
+            ensure_ascii=False,
+            indent=4,
+            sort_keys=True,
+            separators=(",", ": "),
+        )

@@ -7,7 +7,6 @@ authors = ["Glasses-Neo <meganeo.programmer@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 pysimplegui = "^4.35.0"
-toml = "^0.10.2"
 jsons = "^1.4.0"
 dataclass_factory = "^2.10.1"
 

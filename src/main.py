@@ -12,7 +12,7 @@ def app():
     while True:
         e, v = cast(tuple[main, dict[main, Union[str, list[str]]]], window())
 
-        if e in (sg.WIN_CLOSED,):
+        if e in (sg.WIN_CLOSED, main.exit_btn):
             break
 
         print(f"{e=}\n{v=}")
@@ -21,7 +21,8 @@ def app():
         manager.notify_observers()
 
     window.close()
-    # writedata_to_file(memodata_path, memodata)
+
+    writedata_to_file(memodata_path, memodata)
 
 
 sg.theme("DarkGrey14")
@@ -41,6 +42,7 @@ window = sg.Window(
     title="SimpleMemo",
     layout=[
         [sg.Col(items_col_lay), sg.VSep()],
+        [sg.Btn(**exit_btn)],
     ],
     size=(500, 550),
     disable_close=True,

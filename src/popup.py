@@ -2,7 +2,7 @@ from typing import Union, cast
 
 import PySimpleGUI as sg
 
-from event.addition import SwitchButton
+from event.addition import SwitchButtons, datas_to_memo
 from jsonserde import MemoData
 from keys import addition
 from style.addition import *
@@ -10,35 +10,43 @@ from style.addition import *
 
 def addition_popup(md: MemoData):
     pass_pin_col_lay = [
-        [sg.Text("password"), sg.In(**pass_in)],
-        [sg.Text("confirm"), sg.In(**confirm_pass_in)],
+        [sg.Txt(**pass_txt), sg.In(**pass_in)],
+        [sg.Check(**pass_check)],
     ]
 
     pass_pin_elem = sg.Col(pass_pin_col_lay, **pass_pin_col)
     w = sg.Window(
         title="add memo",
         layout=[
-            [sg.Text("title:"), sg.In(**title_in)],
-            [sg.Text("lock:"), sg.Btn(**on_btn), sg.Btn(**off_btn)],
+            [sg.Txt("title:"), sg.In(**title_in)],
+            [sg.Txt("lock:"), sg.Btn(**on_btn), sg.Btn(**off_btn)],
             [sg.pin(pass_pin_elem)],
+            [sg.Cancel(**cancel_btn), sg.OK(**ok_btn)],
         ],
-        size=(250, 150),
-        return_keyboard_events=True,
+        size=(255, 160),
         keep_on_top=True,
         disable_close=True,
         modal=True,
     )
 
-    sb = SwitchButton(w)
+    sb = SwitchButtons(w)
 
     while True:
-        e, v = cast(tuple[addition, dict[addition, Union[str, list[str]]]], w())
+        e, v = cast(tuple[addition, dict[addition, str]], w())
 
-        if e in (sg.WIN_CLOSED,):
+        if e in (sg.WIN_CLOSED, addition.cancel_btn):
             break
 
-        print(f"{e=}\n{v=}")
+        lock = sb(e)
 
-        w[addition.pass_col].update(visible=sb(e))
+        w[addition.pass_col].update(visible=lock)
+
+        char = "" if w[addition.pass_check].get() else "*"
+
+        w[addition.pass_in].update(password_char=char)
+
+        if e == addition.ok_btn:
+            md.memos.append(datas_to_memo(v, lock))
+            break
 
     w.close()

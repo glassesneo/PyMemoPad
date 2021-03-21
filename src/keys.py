@@ -6,6 +6,7 @@ class main(Enum):
     search_in = auto()
     add_btn = auto()
     items_lb = auto()
+    exit_btn = auto()
 
 
 class addition(Enum):
@@ -13,5 +14,7 @@ class addition(Enum):
     on_btn = auto()
     off_btn = auto()
     pass_in = auto()
-    confirm_pass_in = auto()
+    pass_check = auto()
     pass_col = auto()
+    cancel_btn = auto()
+    ok_btn = auto()
