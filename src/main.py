@@ -8,7 +8,6 @@ from style.main import *
 
 
 def app():
-
     while True:
         e, v = cast(tuple[main, dict[main, Union[str, list[str]]]], window())
 
@@ -24,6 +23,8 @@ def app():
 
     writedata_to_file(memodata_path, memodata)
 
+
+# TODO: dataディレクトリとmemodata.jsonがなければ生成する
 
 sg.theme("DarkGrey14")
 
