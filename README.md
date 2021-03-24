@@ -3,5 +3,4 @@
 <h1>PyMemoPad</h1>
 </div>
 
-- - -
 The memo pad written in Python.
