@@ -4,7 +4,7 @@ import datetime as dt
 from dataclasses import dataclass, field
 
 import PySimpleGUI as sg
-from jsonserde import Memo
+from jsonserde import Memo, MemoData
 from keys import addition
 from style.const import green, grey, red
 
@@ -26,6 +26,13 @@ class SwitchButtons:
             self._btn = False
 
         return self._btn
+
+
+def verify_title_is_valid(w: sg.Window, md: MemoData) -> bool:
+    """Verify that title is valid."""
+    is_valid = w[addition.title_in].get() not in md.titles()
+    w[addition.error_col].update(visible=is_valid)
+    return is_valid
 
 
 def datas_to_memo(v: dict[addition, str], lock: bool) -> Memo:

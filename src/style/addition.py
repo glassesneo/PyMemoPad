@@ -43,6 +43,15 @@ pass_pin_col = widget_args(
     visible=False,
 )
 
+error_txt = widget_args(
+    text="This title is already in use.",
+    text_color=red,
+)
+
+error_pin_col = widget_args(
+    k=addition.error_col,
+    visible=False,
+)
 
 cancel_btn = widget_args(
     size=(6, 1),
