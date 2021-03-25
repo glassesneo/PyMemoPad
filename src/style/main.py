@@ -1,5 +1,3 @@
-from typing import Any
-
 from keys import main
 
 from .const import widget_args
@@ -24,7 +22,8 @@ add_btn = widget_args(
 
 items_listbox = widget_args(
     enable_events=True,
-    size=(22, 20),
+    size=(22, 25),
+    font="Any 13",
     k=main.items_lb,
 )
 

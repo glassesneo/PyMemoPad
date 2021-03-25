@@ -8,7 +8,8 @@ from keys import addition
 from style.addition import *
 
 
-def addition_popup(md: MemoData):
+def addition_popup(md: MemoData) -> bool:
+    result = False
     pass_pin_col_lay = [
         [sg.Txt(**pass_txt), sg.In(**pass_in)],
         [sg.Check(**pass_check)],
@@ -54,6 +55,8 @@ def addition_popup(md: MemoData):
         if e == addition.ok_btn:
             if verify_title_is_valid(w, md):
                 md.memos.append(datas_to_memo(v, lock))
+                result = True
                 break
 
     w.close()
+    return result

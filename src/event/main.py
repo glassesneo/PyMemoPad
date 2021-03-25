@@ -12,22 +12,24 @@ from .const import Observable, observables
 
 @dataclass()
 class Search:
-    win: sg.Window
+    w: sg.Window
     e: main
 
     def update(self):
         if self.e == main.search_img:
-            self.win[main.search_in].set_focus(True)
+            self.w[main.search_in].set_focus(True)
 
 
 @dataclass()
 class Addition:
+    w: sg.Window
     md: MemoData
     e: main
 
     def update(self):
         if self.e == main.add_btn:
             addition_popup(self.md)
+            self.w[main.items_lb].update(values=self.md.titles())
 
 
 @dataclass()

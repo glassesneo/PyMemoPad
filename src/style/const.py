@@ -1,7 +1,5 @@
 from typing import Any
 
-from PySimpleGUI import Element
-
 args = dict[str, Any]
 
 

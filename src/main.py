@@ -1,9 +1,11 @@
+import atexit
+from os import mkdir, path
 from typing import Union, cast
 
 import PySimpleGUI as sg
 
 from event.main import Addition, EventManager, Items, Search
-from jsonserde import MemoData, json_to_data, writedata_to_file
+from jsonserde import json_to_data, writedata_to_file
 from style.main import *
 
 
@@ -16,20 +18,18 @@ def app():
 
         print(f"{e=}\n{v=}")
 
-        manager.register(Search(window, e), Addition(memodata, e), Items(e))
+        manager.register(Search(window, e), Addition(window, memodata, e), Items(e))
         manager.notify_observers()
 
     window.close()
 
-    writedata_to_file(memodata_path, memodata)
-
-
-# TODO: dataディレクトリとmemodata.jsonがなければ生成する
 
 sg.theme("DarkGrey14")
 
-memodata_path = "data/memodata.json"
+if not path.isdir("data"):
+    mkdir("data")
 
+memodata_path = "data/memodata.json"
 
 memodata = json_to_data(memodata_path)
 items_lb_val = memodata.titles()
@@ -45,12 +45,18 @@ window = sg.Window(
         [sg.Col(items_col_lay), sg.VSep()],
         [sg.Btn(**exit_btn)],
     ],
-    size=(500, 550),
+    size=(550, 550),
     disable_close=True,
 )
 
 
 manager = EventManager(window, memodata)
 
+
+def cleanup():
+    writedata_to_file(memodata_path, memodata)
+
+
+atexit.register(cleanup)
 
 app()
