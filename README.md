@@ -4,3 +4,4 @@
 </div>
 
 The memo pad written in Python.
+Note: This app is still under development.

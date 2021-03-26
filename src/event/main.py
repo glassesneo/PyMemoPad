@@ -27,8 +27,7 @@ class Addition:
     e: main
 
     def update(self):
-        if self.e == main.add_btn:
-            addition_popup(self.md)
+        if self.e == main.add_btn and addition_popup(self.md):
             self.w[main.items_lb].update(values=self.md.titles())
 
 
@@ -46,7 +45,6 @@ class EventManager:
     window: sg.Window
     memodata: MemoData
     observers: observables = field(init=False)
-    p_observers: observables = field(default_factory=observables)
 
     def __post_init__(self):
         self.observers = []
@@ -57,12 +55,6 @@ class EventManager:
 
     def unregister(self) -> EventManager:
         self.observers.clear()
-        self.observers += self.p_observers
-        return self
-
-    def permanent_register(self, *observers: Observable) -> EventManager:
-        self.observers += observers
-        self.p_observers += observers
         return self
 
     def notify_observers(self) -> EventManager:

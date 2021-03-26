@@ -43,13 +43,25 @@ pass_pin_col = widget_args(
     visible=False,
 )
 
-error_txt = widget_args(
+used_err_txt = widget_args(
     text="This title is already in use.",
     text_color=red,
+    font="Any 12",
 )
 
-error_pin_col = widget_args(
-    k=addition.error_col,
+used_err_col = widget_args(
+    k=addition.used_err_col,
+    visible=False,
+)
+
+empty_err_txt = widget_args(
+    text="The input form is empty.",
+    text_color=red,
+    font="Any 12",
+)
+
+empty_err_col = widget_args(
+    k=addition.empty_err_col,
     visible=False,
 )
 

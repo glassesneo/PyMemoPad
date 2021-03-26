@@ -16,10 +16,16 @@ def addition_popup(md: MemoData) -> bool:
     ]
     pass_pin_elem = sg.Col(pass_pin_col_lay, **pass_pin_col)
 
-    error_pin_col_lay = [
-        [sg.Txt(**error_txt)],
+    used_err_col_lay = [
+        [sg.Txt(**used_err_txt)],
     ]
-    error_pin_elem = sg.Col(error_pin_col_lay, **error_pin_col)
+    used_err_pin_elem = sg.Col(used_err_col_lay, **used_err_col)
+
+    empty_err_col_lay = [
+        [sg.Txt(**empty_err_txt)],
+    ]
+
+    empty_err_pin_elem = sg.Col(empty_err_col_lay, **empty_err_col)
 
     w = sg.Window(
         title="add memo",
@@ -27,16 +33,17 @@ def addition_popup(md: MemoData) -> bool:
             [sg.Txt("title:"), sg.In(**title_in)],
             [sg.Txt("lock:"), sg.Btn(**on_btn), sg.Btn(**off_btn)],
             [sg.pin(pass_pin_elem)],
-            [sg.pin(error_pin_elem)],
+            [sg.pin(used_err_pin_elem)],
+            [sg.pin(empty_err_pin_elem)],
             [sg.Cancel(**cancel_btn), sg.OK(**ok_btn)],
         ],
-        size=(255, 160),
+        size=(255, 180),
         keep_on_top=True,
         disable_close=True,
         modal=True,
     )
 
-    sb = SwitchButtons(w)
+    switch = SwitchButtons(w)
 
     while True:
         e, v = cast(tuple[addition, dict[addition, str]], w())
@@ -44,7 +51,7 @@ def addition_popup(md: MemoData) -> bool:
         if e in (sg.WIN_CLOSED, addition.cancel_btn):
             break
 
-        lock = sb(e)
+        lock = switch(e)
 
         w[addition.pass_col].update(visible=lock)
 
@@ -53,7 +60,7 @@ def addition_popup(md: MemoData) -> bool:
         w[addition.pass_in].update(password_char=char)
 
         if e == addition.ok_btn:
-            if verify_title_is_valid(w, md):
+            if verify_title_is_valid(w, md, v):
                 md.memos.append(datas_to_memo(v, lock))
                 result = True
                 break

@@ -15,6 +15,7 @@ black = "^20.8b1"
 flake8 = "^3.8.4"
 flake8-bugbear = "^21.3.2"
 py2app = "^0.23"
+pytest = "^6.2.2"
 
 [build-system]
 build-backend = "poetry.masonry.api"

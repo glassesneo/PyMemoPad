@@ -28,10 +28,13 @@ class SwitchButtons:
         return self._btn
 
 
-def verify_title_is_valid(w: sg.Window, md: MemoData) -> bool:
+def verify_title_is_valid(w: sg.Window, md: MemoData, v: dict[addition, str]) -> bool:
     """Verify that title is valid."""
-    is_valid = w[addition.title_in].get() not in md.titles()
-    w[addition.error_col].update(visible=not is_valid)
+    is_used = v[addition.title_in] in md.titles()
+    is_empty = v[addition.title_in] == ""
+    is_valid = not (is_used or is_empty)
+    w[addition.used_err_col].update(visible=is_used)
+    w[addition.empty_err_col].update(visible=is_empty)
     return is_valid
 
 

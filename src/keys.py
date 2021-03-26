@@ -16,6 +16,7 @@ class addition(Enum):
     pass_in = auto()
     pass_check = auto()
     pass_col = auto()
-    error_col = auto()
+    used_err_col = auto()
+    empty_err_col = auto()
     cancel_btn = auto()
     ok_btn = auto()
