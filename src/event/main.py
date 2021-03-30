@@ -7,7 +7,7 @@ from jsonserde import MemoData
 from keys import main
 from popup import addition_popup
 
-from .const import Observable, observables
+from .const import Observable
 
 
 @dataclass()
@@ -44,7 +44,7 @@ class Items:
 class EventManager:
     window: sg.Window
     memodata: MemoData
-    observers: observables = field(init=False)
+    observers: list[Observable] = field(init=False)
 
     def __post_init__(self):
         self.observers = []
@@ -58,5 +58,5 @@ class EventManager:
         return self
 
     def notify_observers(self) -> EventManager:
-        map(lambda o: o.update, self.observers)
+        [o.update() for o in self.observers]
         return self.unregister()

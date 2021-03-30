@@ -25,6 +25,10 @@ items_listbox = widget_args(
     size=(22, 25),
     font="Any 13",
     k=main.items_lb,
+    right_click_menu=[
+        "rightClickMenu",
+        ["delete", "aaa"],
+    ],
 )
 
 exit_btn = widget_args(
